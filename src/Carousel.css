@@ -1,5 +1,15 @@
+#carousel {
+  position: relative;
+}
 #carousel-slides {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
+  height: 30rem;
+  position: relative;
+  -webkit-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
 }
 
 ul {
@@ -8,10 +18,47 @@ ul {
   margin: 0;
 }
 
+#arrow-section {
+  position: absolute;
+  width: 100vw;
+  left: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  top: 35%;
+  z-index: 9999;
+}
+
+#left-arrow,
+#right-arrow {
+  width: 1.5rem;
+  cursor: pointer;
+}
+
+.arrow-svg {
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  opacity: 0.4;
+}
+
+#left-arrow:hover .arrow-svg,
+#right-arrow:hover .arrow-svg {
+  fill: #77b8ed;
+  opacity: 1;
+}
+
+#left-arrow {
+  float: left;
+}
+
+#right-arrow {
+  float: right;
+}
+
 .slide {
   display: block;
   position: relative;
-  height: 30rem;
+  height: 100%;
   width: 100vw;
   overflow: hidden;
 }
@@ -26,12 +73,19 @@ ul {
   width: 115vw;
   top: 50%;
   left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  -webkit-filter: blur(1rem) brightness(40%);
   filter: blur(1rem) brightness(40%);
 }
 
 .slide-container-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   height: 100%;
 }
@@ -44,6 +98,7 @@ ul {
 
 .slide-container .thumbnail img {
   max-height: 100%;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0 1rem;
   box-shadow: rgba(0, 0, 0, 0.2) 0 0 1rem;
   -webkit-mask-image: -webkit-gradient(
     linear,
@@ -75,19 +130,24 @@ ul {
 
 .slide-container .buttons {
   margin-top: 1.4rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-}
-
-@media (min-width: 576px) {
 }
 
 @media (min-width: 992px) {
   .slide-container {
     font-size: 100%;
     text-align: left;
-    padding: 3rem 8rem;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 3rem 5rem;
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: auto 3rem 1fr;
     grid-template-columns: auto 1fr;
     grid-gap: 3rem;
   }
@@ -98,6 +158,8 @@ ul {
     height: 24rem;
   }
   .slide-container .buttons {
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
     justify-content: start;
   }
 }

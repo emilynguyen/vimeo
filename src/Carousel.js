@@ -44,6 +44,91 @@ const movies = [
   }
 ];
 
+class BuyBtn extends Component {
+  render() {
+    return (
+      <button
+        className="primary-btn"
+        style={{ backgroundColor: this.props.color }}
+      >
+        <span>
+          <img className="buy-icon" src="/images/buy.svg" alt="" />
+          Buy Now
+        </span>
+      </button>
+    );
+  }
+}
+
+class TrailerBtn extends Component {
+  render() {
+    return <button className="secondary-btn">Watch Trailer</button>;
+  }
+}
+
+class LeftArrow extends Component {
+  render() {
+    return (
+      <svg
+        onClick={this.props.handleClick}
+        id="left-arrow"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 42.21 77.16"
+      >
+        <defs />
+        <title>Asset 2</title>
+        <g id="Layer_2" data-name="Layer 2">
+          <g id="Layer_1-2" data-name="Layer 1">
+            <polygon
+              className="arrow-svg"
+              fill="#fff"
+              points="40.13 77.16 42.2 74.99 4.33 39.06 42.21 2.15 40.12 0 0 39.09 40.13 77.16"
+            />
+          </g>
+        </g>
+      </svg>
+    );
+  }
+}
+
+class RightArrow extends Component {
+  render() {
+    return (
+      <svg
+        onClick={this.props.handleClick}
+        id="right-arrow"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 42.21 77.16"
+      >
+        <defs />
+        <title>Asset 1</title>
+        <g id="Layer_2" data-name="Layer 2">
+          <g id="Layer_1-2" data-name="Layer 1">
+            <polygon
+              className="arrow-svg"
+              fill="#fff"
+              points="2.08 77.16 0.01 74.99 37.88 39.06 0 2.15 2.09 0 42.21 39.09 2.08 77.16"
+            />
+          </g>
+        </g>
+      </svg>
+    );
+  }
+}
+
+class Arrows extends Component {
+  render() {
+    return (
+      <section id="arrow-section">
+        <div id="arrow-container" className="container">
+          <LeftArrow handleClick={this.props.leftArrowClick} />
+          <RightArrow handleClick={this.props.rightArrowClick} />
+        </div>
+      </section>
+    );
+  }
+}
+
 class Slide extends Component {
   render() {
     return (
@@ -62,16 +147,8 @@ class Slide extends Component {
                 <h2>{this.props.movie.title}</h2>
                 <p>{this.props.movie.description}</p>
                 <div className="buttons">
-                  <button
-                    className="primary-btn"
-                    style={{ backgroundColor: this.props.movie.buttonColor }}
-                  >
-                    <span>
-                      <img className="buy-icon" src="/images/buy.svg" alt="" />
-                      Buy Now
-                    </span>
-                  </button>
-                  <button className="secondary-btn">Watch Trailer</button>
+                  <BuyBtn color={this.props.movie.buttonColor} />
+                  <TrailerBtn />
                 </div>
               </div>
             </div>
@@ -83,10 +160,54 @@ class Slide extends Component {
 }
 
 export class Carousel extends Component {
+  constructor(props) {
+    super(props);
+    this.prevSlide = this.prevSlide.bind(this);
+    this.nextSlide = this.nextSlide.bind(this);
+
+    this.state = {
+      slideIndex: 0
+    };
+  }
+
+  prevSlide() {
+    let i = this.state.slideIndex;
+    if (i-- <= 0) {
+      i = movies.length - 1;
+    }
+
+    this.setState({
+      slideIndex: i
+    });
+  }
+
+  nextSlide() {
+    let i = this.state.slideIndex;
+    if (i++ >= movies.length - 1) {
+      i = 0;
+    }
+
+    this.setState({
+      slideIndex: i
+    });
+  }
+
   render() {
+    const i = this.state.slideIndex * -100;
+    const marginLeft = `${i}vw`;
     const slides = movies.map((movie, i) => (
       <Slide movie={movie} key={"slide-" + i} className={"slide-" + i} />
     ));
-    return <ul id="carousel-slides">{slides}</ul>;
+    return (
+      <div id="carousel">
+        <ul id="carousel-slides" style={{ marginLeft: marginLeft }}>
+          {slides}
+        </ul>
+        <Arrows
+          leftArrowClick={this.prevSlide}
+          rightArrowClick={this.nextSlide}
+        />
+      </div>
+    );
   }
 }

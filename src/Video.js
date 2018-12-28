@@ -24,11 +24,12 @@ const videos = {
 
 class Video extends Component {
   render() {
-    const containerClasses = this.props.reverse
-      ? "container container-video container-video-reverse"
-      : "container container-video";
     return (
-      <div className={containerClasses}>
+      <div
+        className={
+          "container video-container " + (this.props.reverse ? "reverse" : "")
+        }
+      >
         <div className="text">
           <div>
             <h2 style={{ color: this.props.textColor }}>
@@ -51,20 +52,15 @@ export class VideoBlock extends Component {
   render() {
     return (
       <div>
-        <section>
+        <section className="bg-white">
           <Video video={videos.monsoon} reverse={true} />
         </section>
 
-        <section style={{ backgroundColor: "#3B3A3B", paddingBottom: "3rem" }}>
+        <section className="bg-gray">
           <Video video={videos.beam} textColor="white" />
         </section>
 
-        <section
-          style={{
-            background: "-webkit-linear-gradient(top, #3b3a3b 0%,#ffffff 100%)",
-            paddingTop: "3rem"
-          }}
-        >
+        <section className="bg-gradient">
           <Video video={videos.move2} reverse={true} textColor="white" />
         </section>
       </div>

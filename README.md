@@ -7,4 +7,4 @@ npm install -g serve
 serve -s build
 ```
 
-Served at [http://localhost:5000](http://localhost:5000)
+Then visit [http://localhost:5000](http://localhost:5000)
